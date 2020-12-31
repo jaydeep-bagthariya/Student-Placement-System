@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/top_tpo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TPOActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/drawer_toolbar_of_tpo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_of_tpo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+
+        <!--<include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/content_main_of_tpo"/>-->
+
+        <include
+            layout="@layout/content_main_of_tpo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView_of_tpo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/drawer_header_of_tpo"
+            app:menu="@menu/drawer_menu_of_tpo" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</RelativeLayout>

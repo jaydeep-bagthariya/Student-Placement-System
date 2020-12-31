@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "537257558655",
+    "firebase_url": "https://student-placement-system-865e4.firebaseio.com",
+    "project_id": "student-placement-system-865e4",
+    "storage_bucket": "student-placement-system-865e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537257558655:android:86af9fe20a75d6ed65b54a",
+        "android_client_info": {
+          "package_name": "com.example.studentplacementsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537257558655-p2o78c5b8j5u2qinkcaaup181cg00m53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studentplacementsystem",
+            "certificate_hash": "d88f70137e65be390e94d67f539659719a2aa000"
+          }
+        },
+        {
+          "client_id": "537257558655-iohet6kv5j87nagbf801aqecj2ua4kdp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfSxVOzIzEOJR21BCz7j04DDbKYfKVE6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537257558655-iohet6kv5j87nagbf801aqecj2ua4kdp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
