@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,7 +79,7 @@ public class Login extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         progressBar.setVisibility(View.GONE);
                         checkStudent(authResult.getUser().getUid());
-                        Toast.makeText(Login.this, "Successfully Login", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Login.this, "Successfully Login", Toast.LENGTH_SHORT).show();
 
 //                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
 //                        Intent intent = new Intent(Login.this, MainActivity.class);
@@ -166,14 +167,56 @@ public class Login extends AppCompatActivity {
         DocumentReference df = fStore.collection("users").document(uid);
 
         //extract the data from the document
-        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                if(documentSnapshot.getString("isStudent")!=null) {
+//                    Intent intent = new Intent(Login.this, MainActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);;
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(Login.this, "Error :"+ e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        df.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.getString("isStudent")!=null) {
-                    Intent intent = new Intent(Login.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);;
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()) {
+                        if(document.get("isStudent")!=null) {
+
+                            Log.d("JAYD","SUCCESS");
+
+                            Toast.makeText(Login.this, "Successfully Login", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);;
+                        }
+                        else {
+                            Log.d("JAYD","SUCCESS");
+                        }
+
+                    }
+                    else {
+                        Toast.makeText(Login.this, "User Does Not Exist", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
+                else {
+                    Toast.makeText(Login.this, "Error :" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Login.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

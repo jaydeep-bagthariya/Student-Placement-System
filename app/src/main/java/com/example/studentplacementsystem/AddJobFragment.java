@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -57,6 +59,16 @@ public class AddJobFragment extends Fragment {
                 String id = UUID.randomUUID().toString();
                 String userID;
 
+                String saveCurrentTime, saveCurrentDate;
+
+                Calendar calendar = Calendar.getInstance();
+
+                SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+                saveCurrentDate = currentDate.format(calendar.getTime());
+
+                SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+                saveCurrentTime = currentTime.format(calendar.getTime());
+
                userID = fAuth.getCurrentUser().getUid();
 
                 if(TextUtils.isEmpty(name)) {
@@ -84,6 +96,9 @@ public class AddJobFragment extends Fragment {
                 companies.put("jobPost",jobpost);
                 companies.put("workType",type);
                 companies.put("user_id",userID);
+                companies.put("time",saveCurrentTime);
+                companies.put("date",saveCurrentDate);
+                companies.put("company_id",id);
 
                 documentReference.set(companies).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

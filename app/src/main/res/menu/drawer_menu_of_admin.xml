@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/viewCompanyForAdmin"
+        android:title="View Company"/>
+    <item
+        android:id="@+id/viewStudents"
+        android:title="View Students"/>
+    <item
+        android:id="@+id/logoutOfTpo"
+        android:title="Logout"/>
+    
+</menu>

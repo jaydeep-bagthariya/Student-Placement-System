@@ -17,7 +17,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +87,21 @@ public class AddDetailOfTpoFragment extends Fragment {
             }
         });
 
-
+        RetrieveUserInfo();
         return view;
+    }
+
+    private void RetrieveUserInfo() {
+
+        DocumentReference documentReference = fStore.collection("TPOs").document(userID);
+
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                tpo_name.getEditText().setText(value.getString("TPOName"));
+                tpo_email.getEditText().setText(value.getString("TPOEmail"));
+                tpo_number.getEditText().setText(value.getString("TPOPhone"));
+            }
+        });
     }
 }

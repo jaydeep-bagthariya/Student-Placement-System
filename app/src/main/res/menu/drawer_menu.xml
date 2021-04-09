@@ -16,11 +16,14 @@
         android:id="@+id/detail"
         android:title="View Detail"/>
     <item
-        android:id="@+id/resume"
-        android:title="Upload Resume"/>
-    <item
         android:id="@+id/viewCompanyForStudent"
         android:title="View Company"/>
+    <item
+        android:id="@+id/myApplication"
+        android:title="My Application"/>
+    <item
+        android:id="@+id/resume"
+        android:title="Upload Resume"/>
     <item
         android:id="@+id/logout"
         android:title="Logout"/>

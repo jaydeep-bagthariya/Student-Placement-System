@@ -14,6 +14,9 @@
         android:id="@+id/viewCompany"
         android:title="View Company"/>
     <item
+        android:id="@+id/viewStudent"
+        android:title="View Student"/>
+    <item
         android:id="@+id/logoutOfTpo"
         android:title="Logout"/>
 

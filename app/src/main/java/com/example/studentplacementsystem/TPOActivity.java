@@ -90,6 +90,13 @@ public class TPOActivity extends AppCompatActivity implements NavigationView.OnN
                 finish();
                 break;
 
+            case R.id.viewStudent:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container_fragment_of_tpo,new ViewStudentFragment());
+                fragmentTransaction.commit();
+                break;
+
             case R.id.viewCompany:
 
                 fragmentManager = getSupportFragmentManager();
@@ -101,5 +108,8 @@ public class TPOActivity extends AppCompatActivity implements NavigationView.OnN
         }
 
         return false;
+    }
+
+    public static class MainFragmentOfAdmin {
     }
 }

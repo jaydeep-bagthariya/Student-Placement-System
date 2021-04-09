@@ -32,5 +32,12 @@ public class Modules extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),LoginOfTPO.class));
             }
         });
+
+        mAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), LoginOfAdmin.class));
+            }
+        });
     }
 }

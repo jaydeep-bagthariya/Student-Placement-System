@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -22,9 +24,11 @@ public class ViewJobForStudentFragment extends Fragment implements JobAdapter.On
 
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private CollectionReference jobRef = fStore.collection("Companies");
+    private CollectionReference ApplyRef = fStore.collection("Apply");
     private RecyclerView recyclerView;
 
     private JobAdapter adapter;
+    private String currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirestoreRecyclerOptions<Job> options;
 
     @Nullable
@@ -39,7 +43,10 @@ public class ViewJobForStudentFragment extends Fragment implements JobAdapter.On
     }
 
     private void setUpRecyclerView() {
-        Query query = jobRef.orderBy("companyName", Query.Direction.DESCENDING);
+
+        Query query = jobRef.orderBy("time", Query.Direction.DESCENDING)
+                .orderBy("date", Query.Direction.DESCENDING);
+
 
         FirestoreRecyclerOptions<Job> options = new FirestoreRecyclerOptions.Builder<Job>()
                 .setQuery(query, Job.class)
@@ -65,12 +72,15 @@ public class ViewJobForStudentFragment extends Fragment implements JobAdapter.On
 
     @Override
     public void onJobClick(int position) {
-        Toast.makeText(getContext(), "position"+position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "position"+position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), ApplyForJob.class);
         intent.putExtra("jobPost", adapter.getItem(position).getJobPost());
         intent.putExtra("companyName", adapter.getItem(position).getCompanyName());
         intent.putExtra("description", adapter.getItem(position).getCompanyDescription());
         intent.putExtra("workType", adapter.getItem(position).getWorkType());
+        intent.putExtra("userId", adapter.getItem(position).getUser_id());
+        intent.putExtra("companyId",adapter.getItem(position).getCompany_id());
+
         startActivity(intent);
     }
 

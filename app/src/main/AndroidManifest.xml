@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ApplyForJob"></activity>
+        <activity android:name=".AdminActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".LoginOfAdmin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ApplyForJob" />
         <activity
             android:name=".LoginOfTPO"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -22,8 +27,9 @@
         <activity
             android:name=".TPOActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Modules"
-            android:theme="@style/AppTheme.NoActionBar" >
+        <activity
+            android:name=".Modules"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.package.name.MyActivity" />
