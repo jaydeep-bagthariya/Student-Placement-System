@@ -28,7 +28,7 @@ import java.util.Map;
 public class AddDetailOfTpoFragment extends Fragment {
 
     private Button save;
-    private TextInputLayout tpo_name, tpo_email, tpo_number;
+    private TextInputLayout tpo_name, tpo_email, tpo_number, tpo_city;
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
 
@@ -42,9 +42,12 @@ public class AddDetailOfTpoFragment extends Fragment {
 
         save = view.findViewById(R.id.tAdd);
 
+        ((TPOActivity) getActivity()).getSupportActionBar().setTitle("Add Profile Details");
+
         tpo_name = view.findViewById(R.id.tpo_name);
         tpo_email = view.findViewById(R.id.tpo_email);
         tpo_number = view.findViewById(R.id.tpo_phone_number);
+        tpo_city = view.findViewById(R.id.tpo_city);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -57,6 +60,7 @@ public class AddDetailOfTpoFragment extends Fragment {
                 String name = tpo_name.getEditText().getText().toString().trim();
                 String email = tpo_email.getEditText().getText().toString().trim();
                 String phone = tpo_number.getEditText().getText().toString().trim();
+                String city = tpo_city.getEditText().getText().toString().trim();
 
                 if(TextUtils.isEmpty(name)){
                     tpo_name.setError("Name is Required");
@@ -72,6 +76,7 @@ public class AddDetailOfTpoFragment extends Fragment {
                 user.put("TPOName",name);
                 user.put("TPOPhone",phone);
                 user.put("TPOEmail",email);
+                user.put("TPOCity",city);
 
                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -101,6 +106,7 @@ public class AddDetailOfTpoFragment extends Fragment {
                 tpo_name.getEditText().setText(value.getString("TPOName"));
                 tpo_email.getEditText().setText(value.getString("TPOEmail"));
                 tpo_number.getEditText().setText(value.getString("TPOPhone"));
+                tpo_city.getEditText().setText(value.getString("TPOCity"));
             }
         });
     }

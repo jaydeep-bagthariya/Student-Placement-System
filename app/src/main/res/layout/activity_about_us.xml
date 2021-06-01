@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AboutUs"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/about"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About Placed"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/headings"
+                android:textSize="28sp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"
+                android:text="    The main objective of this Placed App is to develop and android
+application which manages placement activities in college makes an interactive GUI where the
+institute can manage details of students. The applications main aim is to unite the students
+and companies on a platform so that eh searching of jobs will be easy for students and searching
+for employees will be easy for companies also. In his application, the Placement Officer
+has to registered first before login is performed. Once registered you can login into the
+application and post the notice of job by specifying all the details, like how many vacancies
+and requirements are. Similarly the students also has to register and login in the module to
+search the jobs that are available for them. The admin is able to monitor the students who enrolled
+and also the Placement Officer that posted their jobs. This Placed Application is a Final
+Year project of B.E where we are able to show creativity and the things that we learned." />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Developers"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/headings"
+                android:textSize="28sp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jaydeep Bagthariya"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Satish Pansara"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pradip Khant"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rahul Der"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

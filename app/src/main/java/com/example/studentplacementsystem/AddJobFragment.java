@@ -45,6 +45,8 @@ public class AddJobFragment extends Fragment {
         workType = view.findViewById(R.id.workType);
         addJob = view.findViewById(R.id.addJob);
 
+        ((TPOActivity) getActivity()).getSupportActionBar().setTitle("Add Company");
+
 
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();

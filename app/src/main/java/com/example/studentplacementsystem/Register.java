@@ -20,15 +20,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mEmail, mPassword;
+    EditText mEmail, mPassword, mDate;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;  //Provided Firebase Authentication:)
@@ -43,6 +46,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mEmail      = findViewById(R.id.email);
+        mDate       = findViewById(R.id.birthdate);
         mPassword   = findViewById(R.id.password);
         mRegisterBtn= findViewById(R.id.loginBtn);
         mLoginBtn   = findViewById(R.id.createText);
@@ -58,9 +62,14 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
+                final String birthDate = mDate.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email is Required");
+                    return;
+                }
+                if(TextUtils.isEmpty(birthDate)) {
+                    mDate.setError("Birth Date is Required");
                     return;
                 }
                 if(TextUtils.isEmpty(password)) {
@@ -75,43 +84,76 @@ public class Register extends AppCompatActivity {
 
                 // register the user in firebase
 
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Register.this, "User Created", Toast.LENGTH_SHORT).show();
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                Task<DocumentSnapshot> documentSnapshot = fStore.collection("user").document(email)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if(documentSnapshot.exists()) {
+                                    String date = documentSnapshot.getString("StudentBirthDate");
+                                    if(date.equals(birthDate)) {
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(Register.this, "User Created", Toast.LENGTH_SHORT).show();
 
-                            Map<String, Object> user = new HashMap<>();
-                            user.put("isStudent","1");
+                                        Intent intent = new Intent(Register.this, MainActivity.class);
+                                        intent.putExtra("jaydeep",documentSnapshot.getString("StudentEr"));
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else {
+                                        Toast.makeText(Register.this, "Invalid User !!!", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    }
 
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "on Success: user Porfile is created for "+ userID);
+                                } else {
+                                    Toast.makeText(Register.this, "Error ! ", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.toString());
-                                }
-                            });
+                            }
+                        });
 
-//                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                Task<Void> documentSnapshot1 = fStore.collection("user").document(email)
+                        .update("Password",password);
 
-                            Intent intent = new Intent(Register.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
-
-                        } else {
-                            Toast.makeText(Register.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
+//
+//                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()) {
+//                            progressBar.setVisibility(View.GONE);
+//                            Toast.makeText(Register.this, "User Created", Toast.LENGTH_SHORT).show();
+//                            userID = fAuth.getCurrentUser().getUid();
+//                            DocumentReference documentReference = fStore.collection("users").document(userID);
+//
+//                            Map<String, Object> user = new HashMap<>();
+//                            user.put("isStudent","1");
+//
+//                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d(TAG, "on Success: user Porfile is created for "+ userID);
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.d(TAG, "onFailure: " + e.toString());
+//                                }
+//                            });
+//
+////                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//
+//                            Intent intent = new Intent(Register.this, MainActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(intent);
+//                            finish();
+//
+//                        } else {
+//                            Toast.makeText(Register.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+//                });
             }
         });
 

@@ -38,11 +38,10 @@ public class ResumeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_resume, container, false);
-        Button clickme = view.findViewById(R.id.load);
 
         upload = view.findViewById(R.id.rUpload);
         select = view.findViewById(R.id.rSelect);
-
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Upload Resume");
         //fileName = view.findViewById(R.id.fileName);
 
         storageReference = FirebaseStorage.getInstance().getReference();

@@ -1,5 +1,6 @@
 package com.example.studentplacementsystem;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,17 +25,21 @@ public class ViewJobForStudentFragment extends Fragment implements JobAdapter.On
 
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private CollectionReference jobRef = fStore.collection("Companies");
-    private CollectionReference ApplyRef = fStore.collection("Apply");
     private RecyclerView recyclerView;
 
     private JobAdapter adapter;
-    private String currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirestoreRecyclerOptions<Job> options;
+    private String Er_num;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_job_for_student, container, false);
+
+        MainActivity activity = (MainActivity) getActivity();
+        Er_num = activity.getMyData();
+
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Companies");
 
         recyclerView = view.findViewById(R.id.recycler_view2);
         setUpRecyclerView();
@@ -80,6 +85,7 @@ public class ViewJobForStudentFragment extends Fragment implements JobAdapter.On
         intent.putExtra("workType", adapter.getItem(position).getWorkType());
         intent.putExtra("userId", adapter.getItem(position).getUser_id());
         intent.putExtra("companyId",adapter.getItem(position).getCompany_id());
+        intent.putExtra("Er_num",Er_num);
 
         startActivity(intent);
     }

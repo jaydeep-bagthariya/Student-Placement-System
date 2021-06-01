@@ -12,46 +12,122 @@
     app:cardCornerRadius="10dp">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="10dp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_view_jobPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Job Post"
-            android:textSize="28dp"
+            android:textSize="28sp"
+            android:fontFamily="sans-serif-light"
             android:textColor="@color/colorBlue"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <TextView
-            android:id="@+id/text_view_companyName"
-            android:layout_width="wrap_content"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/grey" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_jobPost"
-            android:ellipsize="end"
-            android:textSize="20sp"
-            android:text="Company Name" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_view_description"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comapny Name"
+                android:textColor="@color/headings"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/text_view_companyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="jadeep@gmail.com"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_companyName"
-            android:ellipsize="end"
-            android:textSize="20sp"
-            android:text="Company Description" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_view_workType"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copany Description"
+                android:textColor="@color/headings"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/text_view_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="jadeep@gmail.com"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_description"
-            android:ellipsize="end"
-            android:textSize="20sp"
-            android:text="Work Type" />
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Work Type"
+                android:textColor="@color/headings"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/text_view_workType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="jadeep@gmail.com"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/text_view_companyName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/text_view_jobPost"-->
+<!--            android:ellipsize="end"-->
+<!--            android:textSize="20sp"-->
+<!--            android:text="Company Name" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/text_view_description"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/text_view_companyName"-->
+<!--            android:ellipsize="end"-->
+<!--            android:textSize="20sp"-->
+<!--            android:text="Company Description" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/text_view_workType"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/text_view_description"-->
+<!--            android:ellipsize="end"-->
+<!--            android:textSize="20sp"-->
+<!--            android:text="Work Type" />-->
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

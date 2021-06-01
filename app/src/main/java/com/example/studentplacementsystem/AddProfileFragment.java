@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class AddProfileFragment extends Fragment {
     private  Button add;
-    private TextInputLayout sName,sErNo, sPhone,sCity,sEmail,sQualification,sField,sPassingYear;
+    private TextInputLayout sName,sPhone,sCity,sEmail;
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
 
@@ -40,59 +40,41 @@ public class AddProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adddetail,container, false);
 
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Edit Profile");
+
         add = view.findViewById(R.id.sAdd);
 
         sName = view.findViewById(R.id.sName);
-        sErNo = view.findViewById(R.id.sErNo);
         sPhone = view.findViewById(R.id.sPhone);
         sCity = view.findViewById(R.id.sCity);
         sEmail = view.findViewById(R.id.sEmail);
-        sQualification = view.findViewById(R.id.sQualification);
-        sField = view.findViewById(R.id.sField);
-        sPassingYear = view.findViewById(R.id.sPassingYear);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        userID = fAuth.getCurrentUser().getUid();
+        MainActivity activity = (MainActivity) getActivity();
+        userID = activity.getMyData();
 
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = sName.getEditText().getText().toString().trim();
-                String ErNo = sErNo.getEditText().getText().toString().trim();
                 String phone = sPhone.getEditText().getText().toString().trim();
                 String Email = sEmail.getEditText().getText().toString();
                 String City = sCity.getEditText().getText().toString();
-                String Qualification = sQualification.getEditText().getText().toString().trim();
-                String Field = sField.getEditText().getText().toString().trim();
-                String PassingYear = sPassingYear.getEditText().getText().toString();
 
-
-                if(TextUtils.isEmpty(name)){
+                if(TextUtils.isEmpty(name)) {
                     sName.setError("Name is Required");
                     return;
                 }
-                if(TextUtils.isEmpty(ErNo)) {
-                    sErNo.setError("Enrollment Number is required");
-                    return;
-                }
-                if(ErNo.length() < 12) {
-                    sErNo.setError("Enrollment Number must be at least 12 digits");
-                }
 
-                DocumentReference documentReference = fStore.collection("users").document(userID);
+                DocumentReference documentReference = fStore.collection("user").document(userID);
 
                 Map<String, Object> user = new HashMap<>();
                 user.put("StudentName",name);
-                user.put("StudentEr",ErNo);
                 user.put("StudentPhone",phone);
                 user.put("StudentEmail",Email);
                 user.put("StudentCity",City);
-                user.put("StudentQualification",Qualification);
-                user.put("StudentField",Field);
-                user.put("StudentPassingYear",PassingYear);
-
 
                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -116,19 +98,15 @@ public class AddProfileFragment extends Fragment {
 
     private void RetrieveUserInfo() {
 
-        DocumentReference documentReference = fStore.collection("users").document(userID);
+        DocumentReference documentReference = fStore.collection("user").document(userID);
 
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 sName.getEditText().setText(value.getString("StudentName"));
-                sErNo.getEditText().setText(value.getString("StudentEr"));
                 sEmail.getEditText().setText(value.getString("StudentEmail"));
                 sCity.getEditText().setText(value.getString("StudentCity"));
                 sPhone.getEditText().setText(value.getString("StudentPhone"));
-                sQualification.getEditText().setText(value.getString("StudentQualification"));
-                sField.getEditText().setText(value.getString("StudentField"));
-                sPassingYear.getEditText().setText(value.getString("StudentPassingYear"));
             }
         });
     }

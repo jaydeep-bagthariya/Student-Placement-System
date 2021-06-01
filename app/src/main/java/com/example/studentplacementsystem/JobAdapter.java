@@ -26,9 +26,9 @@ public class JobAdapter extends FirestoreRecyclerAdapter<Job,JobAdapter.JobHolde
     @Override
     protected void onBindViewHolder(@NonNull JobHolder holder, int position, @NonNull Job model) {
         holder.textViewJobPost.setText(model.getJobPost());
-        holder.textViewCompanyName.setText("Company Name: " + model.getCompanyName());
-        holder.textViewCompanyDescription.setText("Description: " + model.getCompanyDescription());
-        holder.textViewWorkType.setText("Working Type: " + model.getWorkType());
+        holder.textViewCompanyName.setText( model.getCompanyName());
+        holder.textViewCompanyDescription.setText( model.getCompanyDescription());
+        holder.textViewWorkType.setText(model.getWorkType());
 
     }
 

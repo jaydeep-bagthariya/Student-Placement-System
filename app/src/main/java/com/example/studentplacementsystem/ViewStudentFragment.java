@@ -39,7 +39,7 @@ public class ViewStudentFragment extends Fragment implements ViewStudentAdapter.
     }
 
     private void setUpRecyclerView() {
-        Query query = jobRef.orderBy("companyName");
+        Query query = jobRef.whereEqualTo("tpo_id",currentUserID). orderBy("companyName");
 
         FirestoreRecyclerOptions<Apply> options = new FirestoreRecyclerOptions.Builder<Apply>()
                 .setQuery(query, Apply.class)

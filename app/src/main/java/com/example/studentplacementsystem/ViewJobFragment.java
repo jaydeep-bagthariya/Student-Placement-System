@@ -46,6 +46,8 @@ public class ViewJobFragment extends Fragment implements JobAdapter.OnJobListene
         currentUser = fAuth.getCurrentUser().getUid();
         setUpRecyclerView();
 
+        ((TPOActivity) getActivity()).getSupportActionBar().setTitle("View Companies");
+
         return view;
     }
 
@@ -80,11 +82,13 @@ public class ViewJobFragment extends Fragment implements JobAdapter.OnJobListene
 
     @Override
     public void onJobClick(int position) {
+        Intent intent = new Intent(getContext(), ApplyStudentList.class);
+        intent.putExtra("companyID", adapter.getItem(position).getCompany_id());
 //        String s = "jaydeep";
 //        Job job = adapter.getItem(position);
 //        Intent intent = new Intent(getContext(), ApplyForJob.class);
 //        intent.putExtra("value", s);
 //
-//        startActivity(intent);
+        startActivity(intent);
     }
 }

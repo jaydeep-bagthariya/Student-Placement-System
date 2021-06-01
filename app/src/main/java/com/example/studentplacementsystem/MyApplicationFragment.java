@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +29,7 @@ public class MyApplicationFragment extends Fragment implements ApplyAdapter.OnAp
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private CollectionReference jobRef = fStore.collection("Apply");
     private RecyclerView recyclerView;
-    private String currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String currentUserID;
 
     private ApplyAdapter adapter;
     private FirestoreRecyclerOptions<Apply> options;
@@ -39,8 +40,13 @@ public class MyApplicationFragment extends Fragment implements ApplyAdapter.OnAp
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_application, container, false);
 
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("My Application");
+
         recyclerView = view.findViewById(R.id.recycler_view3);
+        MainActivity activity = (MainActivity) getActivity();
+        currentUserID = activity.getMyData();
         setUpRecyclerView();
+
 
         return view;
     }
@@ -49,7 +55,7 @@ public class MyApplicationFragment extends Fragment implements ApplyAdapter.OnAp
 //        Query query = jobRef.orderBy("time", Query.Direction.DESCENDING)
 //                .orderBy("date", Query.Direction.DESCENDING);
 
-        Query query = jobRef.whereEqualTo("user_id",currentUserID).orderBy("companyName");
+        Query query = jobRef.whereEqualTo("user_id",currentUserID);
 
 
 //        jobRef.whereEqualTo("user_id",currentUserID).get()
@@ -76,6 +82,19 @@ public class MyApplicationFragment extends Fragment implements ApplyAdapter.OnAp
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                adapter.deleteItem(viewHolder.getAdapterPosition());
+                Toast.makeText(getContext(), "Deleted !", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
     @Override

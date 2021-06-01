@@ -2,6 +2,7 @@ package com.example.studentplacementsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,12 +29,16 @@ public class ApplyForJob extends AppCompatActivity {
     private Button applyBut;
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private String currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_for_job);
 
+        getSupportActionBar().setTitle("Company Details");
+
+        currentUser = getIntent().getStringExtra("Er_num");
         companyName = findViewById(R.id.company_name);
         jobPost = findViewById(R.id.job_post);
         description = findViewById(R.id.company_description);
@@ -49,17 +54,16 @@ public class ApplyForJob extends AppCompatActivity {
         final String companyId = intent.getStringExtra("companyId");
         final String tpoId = intent.getStringExtra("userId");
 
-        companyName.setText("Company Name : " + name[0]);
-        jobPost.setText("Job Post : " + post);
-        description.setText("Company Description : " + des);
-        workType.setText("Working Type : " + type);
+        companyName.setText( name[0]);
+        jobPost.setText( post);
+        description.setText(des);
+        workType.setText(type);
 
         applyBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                final String currentUser = fAuth.getCurrentUser().getUid();
                 String id = UUID.randomUUID().toString();
 
 //                DocumentReference documentReference = fStore.collection("Companies").document(companyId)
@@ -77,14 +81,16 @@ public class ApplyForJob extends AppCompatActivity {
 //                });
                 final String[] sName = new String[1];
                 final String[] sEmail = new String[1];
+                final String[] sCgpa = new String[1];
                 final DocumentReference documentReference = fStore.collection("Apply").document(id);
-                Task<DocumentSnapshot> documentReference1 = fStore.collection("users").document(currentUser)
+                Task<DocumentSnapshot> documentReference1 = fStore.collection("user").document(currentUser)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 sName[0] = documentSnapshot.getString("StudentName");
                                 sEmail[0] = documentSnapshot.getString("StudentEmail");
+                                sCgpa[0] = documentSnapshot.get("Cgpa").toString();
 
                                 Log.d("JJJ",sName[0] + " " + sEmail[0]);
                                 final Map<String,Object> apply = new HashMap<>();
@@ -92,12 +98,13 @@ public class ApplyForJob extends AppCompatActivity {
                                 apply.put("user_id",currentUser);
                                 apply.put("tpo_id",tpoId);
                                 apply.put("status","applied");
-                                apply.put("companyDescription",des);
-                                apply.put("companyName", name[0]);
-                                apply.put("jobPost",post);
-                                apply.put("workType",type);
-                                apply.put("studentName", sName[0]);
-                                apply.put("studentEmail",sEmail[0]);
+//                                apply.put("companyDescription",des);
+//                                apply.put("companyName", name[0]);
+//                                apply.put("jobPost",post);
+//                                apply.put("workType",type);
+//                                apply.put("studentName", sName[0]);
+//                                apply.put("studentEmail",sEmail[0]);
+                                apply.put("Cgpa",sCgpa[0]);
 
 
 

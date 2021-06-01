@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <group>
+        <item
+            android:id="@+id/homeForAdmin"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <!--    <item-->
+        <!--        android:id="@+id/viewCompanyForAdmin"-->
+        <!--        android:title="View Company"/>-->
+        <item
+            android:id="@+id/viewStudentsForAdmin"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="View Students" />
+        <item
+            android:id="@+id/viewTpoForAdmin"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="View TPOs" />
+        <item
+            android:id="@+id/logoutOfAdmin"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="Logout" />
 
-    <item
-        android:id="@+id/viewCompanyForAdmin"
-        android:title="View Company"/>
-    <item
-        android:id="@+id/viewStudents"
-        android:title="View Students"/>
-    <item
-        android:id="@+id/logoutOfTpo"
-        android:title="Logout"/>
-    
+    </group>
+
+
+    <item android:title="Communication">
+        <menu>
+            <item
+                android:id="@+id/viewFeedback"
+                android:icon="@drawable/ic_feedback_black_24dp"
+                android:title="View Feedback" />
+        </menu>
+    </item>
 </menu>
